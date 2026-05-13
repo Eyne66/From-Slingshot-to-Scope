@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="从弹弓到瞄准镜：一个关于学习、AI 工具、考研备考、认知误差与自我校准的中文交互思想实验。" />
+  <title>从弹弓到瞄准镜｜From Slingshot to Scope</title>
+  <style>
+    :root {
+      --bg: #0d1018;
+      --card: rgba(22, 27, 39, .78);
+      --card-strong: rgba(28, 34, 49, .92);
+      --text: #f4f1e8;
+      --muted: #b9b3a8;
+      --line: rgba(255, 255, 255, .11);
+      --accent: #e7c66b;
+      --accent2: #8fd3ff;
+      --danger: #ff8a8a;
+      --good: #a6e3a1;
+      --shadow: 0 24px 70px rgba(0, 0, 0, .38);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
+      background:
+        radial-gradient(circle at 18% 12%, rgba(143, 211, 255, .16), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(231, 198, 107, .14), transparent 24%),
+        radial-gradient(circle at 48% 78%, rgba(166, 227, 161, .09), transparent 30%),
+        linear-gradient(180deg, #111522, #080a10 68%, #050608);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .52;
+      background-image:
+        radial-gradient(#fff 1px, transparent 1px),
+        radial-gradient(#fff 1px, transparent 1px);
+      background-size: 86px 86px, 148px 148px;
+      background-position: 0 0, 42px 64px;
+      animation: drift 26s linear infinite;
+    }
+
+    @keyframes drift {
+      to { transform: translateY(86px); }
+    }
+
+    .shell {
+      position: relative;
+      z-index: 1;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 20px 72px;
+    }
+
+    header {
+      min-height: 92vh;
+      display: grid;
+      align-content: center;
+      text-align: center;
+      padding: 72px 0 40px;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent2);
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(42px, 8vw, 86px);
+      line-height: 1.02;
+      letter-spacing: -.04em;
+    }
+
+    .title-en {
+      display: block;
+      margin-top: 12px;
+      color: rgba(244, 241, 232, .24);
+      filter: blur(1.2px);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      max-width: 820px;
+      margin: 26px auto 0;
+      color: var(--muted);
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.85;
+    }
+
+    .highlight { color: var(--accent); }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 34px;
+    }
+
+    .nav a {
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, .035);
+    }
+
+    .panel {
+      margin-bottom: 22px;
+      padding: clamp(22px, 4vw, 34px);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .panel h2 {
+      margin: 0 0 16px;
+      font-size: clamp(28px, 4vw, 46px);
+      line-height: 1.16;
+      letter-spacing: -.02em;
+    }
+
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.85;
+    }
+
+    .stage-wrap {
+      display: grid;
+      gap: 18px;
+    }
+
+    .stage-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      border: 1px solid rgba(231, 198, 107, .46);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-size: 14px;
+      background: rgba(231, 198, 107, .08);
+    }
+
+    .explain {
+      max-width: 780px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.85;
+    }
+
+    .battlefield {
+      position: relative;
+      height: 340px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        radial-gradient(circle at 78% 50%, rgba(231,198,107,.16), transparent 13%),
+        #10141d;
+      background-size: 40px 40px, 40px 40px, auto, auto;
+    }
+
+    .fog {
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,.18);
+      filter: blur(10px);
+      opacity: .65;
+      transition: .5s;
+    }
+
+    .target {
+      position: absolute;
+      right: 12%;
+      top: 50%;
+      width: 118px;
+      height: 118px;
+      transform: translateY(-50%);
+      border-radius: 50%;
+      border: 3px solid rgba(231,198,107,.9);
+      box-shadow: 0 0 35px rgba(231,198,107,.22);
+    }
+
+    .target::before,
+    .target::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .target::before {
+      inset: 20px;
+      border: 3px solid rgba(231,198,107,.7);
+    }
+
+    .target::after {
+      inset: 45px;
+      background: var(--accent);
+    }
+
+    .shot {
+      position: absolute;
+      left: 14%;
+      top: 50%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent2);
+      box-shadow: 0 0 20px var(--accent2);
+      transition: all .55s cubic-bezier(.2,.9,.2,1);
+    }
+
+    .scope {
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      right: 9.7%;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 2px solid rgba(143,211,255,.8);
+      border-radius: 50%;
+      opacity: 0;
+      transition: .5s;
+      box-shadow: 0 0 35px rgba(143,211,255,.18), inset 0 0 30px rgba(143,211,255,.08);
+    }
+
+    .scope::before,
+    .scope::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(143,211,255,.85);
+    }
+
+    .scope::before { width: 120px; height: 1px; }
+    .scope::after { width: 1px; height: 120px; }
+
+    .range-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      color: var(--muted);
+    }
+
+    input[type=range] {
+      width: min(540px, 78vw);
+      accent-color: var(--accent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    .quote {
+      text-align: center;
+      color: #fff;
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.65;
+    }
+
+    .quote span { color: var(--accent); }
+
+    .btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      background: var(--accent);
+      color: #141414;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(231,198,107,.22);
+    }
+
+    button.secondary {
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--text);
+      box-shadow: none;
+    }
+
+    .log {
+      min-height: 72px;
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #0d1017;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .record {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .record .panel {
+      margin-bottom: 0;
+      background: var(--card-strong);
+    }
+
+    footer {
+      padding: 18px 0 0;
+      color: rgba(244, 241, 232, .48);
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 820px) {
+      .grid, .record { grid-template-columns: 1fr; }
+      .battlefield { height: 280px; }
+      .target { right: 8%; }
+      .scope { right: 2.5%; }
+      header { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <p class="eyebrow">interactive essay / cognitive calibration</p>
+      <h1>
+        从<span class="highlight">弹弓</span>到<span class="highlight">瞄准镜</span>
+        <span class="title-en">From Slingshot to Scope</span>
+      </h1>
+      <p class="subtitle">
+        一个关于学习、AI 工具、考研备考、认知误差与自我校准的小型中文交互思想实验。
+        它讨论的不是“工具有多强”，而是人在强工具时代如何看清目标、识别误差、持续复盘。
+      </p>
+      <nav class="nav" aria-label="页面导航">
+        <a href="#model">认知模型</a>
+        <a href="#questions">关键问题</a>
+        <a href="#record">思考记录</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel stage-wrap" id="model">
+        <div class="stage-title">
+          <div>
+            <h2 id="stageName">阶段一：弹弓期</h2>
+            <p class="explain" id="stageText">
+              工具弱，目标也模糊。人更多靠兴趣、冲动和零散尝试行动，常常不知道自己到底在瞄准什么。
+            </p>
+          </div>
+          <div class="badge" id="badge">命中率：靠缘分</div>
+        </div>
+
+        <div class="battlefield" aria-label="从弹弓到瞄准镜的交互示意">
+          <div class="fog" id="fog"></div>
+          <div class="target"></div>
+          <div class="scope" id="scope"></div>
+          <div class="shot" id="shot"></div>
+        </div>
+
+        <div class="range-box">
+          <span>弹弓</span>
+          <input id="slider" type="range" min="0" max="2" value="0" />
+          <span>瞄准镜</span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="quote">
+          “真正的成长不是工具突然变强，<br>
+          而是人开始拥有<span>校准误差</span>的能力。”
+        </div>
+      </section>
+
+      <section class="grid" id="questions">
+        <article class="card">
+          <h3>工具升级</h3>
+          <p>AI、资料、真题、教程都在手里。强工具可以提高效率，也可能让人高效率乱打。</p>
+        </article>
+        <article class="card">
+          <h3>目标模糊</h3>
+          <p>很多学习卡顿不是完全不会，而是看得模糊：被熟悉感、假线索、先入为主带偏。</p>
+        </article>
+        <article class="card">
+          <h3>认知精度</h3>
+          <p>突破发生在开始追问：我为什么会错？我被什么骗了？下一次如何少偏一点？</p>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>不要用工具逃避真正的问题</h2>
+        <p class="lead">
+          AI 不是主体，而是辅助系统。它可以帮我解释、归纳、生成、检索，也可以制造更流畅的幻觉。
+          真正需要被训练的是目标判断、误差校准、行动复盘和持续推进。
+        </p>
+      </section>
+
+      <section class="record" id="record">
+        <article class="panel">
+          <h2>从感想到项目</h2>
+          <p class="lead">
+            这个项目来自一次真实的学习复盘：做考研英语真题时，我发现自己真正的提升不是“知道更多答案”，
+            而是开始意识到自己会如何被误导。
+          </p>
+        </article>
+        <article class="panel">
+          <h2>从行动到复盘</h2>
+          <p class="lead">
+            于是我把这种感觉转化为“弹弓—枪—瞄准镜”的隐喻：从模糊行动，到工具增强，再到看见误差。
+            这不是效率工具，而是一种自我校准练习。
+          </p>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>把今天的思考变成一个项目</h2>
+        <p class="explain">
+          这个网页的核心不是展示 AI Coding 技术，而是把一个隐喻变成可交互的认知模型：
+          从弹弓、枪，到瞄准镜；从工具崇拜，到误差校准；从“我错了”，到“我知道自己怎么偏了”。
+        </p>
+        <div class="btns">
+          <button onclick="shoot()">试着瞄准一次</button>
+          <button class="secondary" onclick="nextPrompt()">生成一个复盘问题</button>
+        </div>
+        <div class="log" id="log">点击按钮，看看这套模型如何转化成学习复盘。</div>
+      </section>
+    </main>
+
+    <footer>
+      从弹弓到瞄准镜 / From Slingshot to Scope<br>
+      A small Chinese interactive essay on learning, AI tools, and cognitive calibration.
+    </footer>
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const stageName = document.getElementById('stageName');
+    const stageText = document.getElementById('stageText');
+    const badge = document.getElementById('badge');
+    const fog = document.getElementById('fog');
+    const scope = document.getElementById('scope');
+    const shot = document.getElementById('shot');
+    const log = document.getElementById('log');
+
+    const stages = [
+      {
+        name: '阶段一：弹弓期',
+        text: '工具弱，目标也模糊。人更多靠兴趣、冲动和零散尝试行动，常常不知道自己到底在瞄准什么。',
+        badge: '命中率：靠缘分',
+        fog: .68,
+        scope: 0,
+        top: '28%',
+        right: '61%'
+      },
+      {
+        name: '阶段二：拿到枪，但仍然近视',
+        text: '工具变强了：AI、资料、真题都在手里。但判断还不稳，能看见轮廓，却容易被熟悉感和假线索误导。',
+        badge: '命中率：开始可训练',
+        fog: .32,
+        scope: .25,
+        top: '47%',
+        right: '27%'
+      },
+      {
+        name: '阶段三：瞄准镜出现',
+        text: '真正的突破不是更用力，而是更精确：知道目标、知道误差、知道自己为什么偏，并能持续校准。',
+        badge: '命中率：靠复盘提高',
+        fog: .04,
+        scope: 1,
+        top: '50%',
+        right: '13.8%'
+      }
+    ];
+
+    function renderStage() {
+      const stage = stages[Number(slider.value)];
+      stageName.textContent = stage.name;
+      stageText.textContent = stage.text;
+      badge.textContent = stage.badge;
+      fog.style.opacity = stage.fog;
+      scope.style.opacity = stage.scope;
+      shot.style.top = stage.top;
+      shot.style.left = 'auto';
+      shot.style.right = stage.right;
+    }
+
+    slider.addEventListener('input', renderStage);
+    renderStage();
+
+    function shoot() {
+      const messages = [
+        '弹弓期：你不是懒，你可能还没看清目标。今天先记录：我到底在打什么？',
+        '拿到枪但近视：工具已经变强，但误差也会被放大。此刻最该问：我是被哪个假线索带偏了？',
+        '瞄准镜期：精度来自复盘。不是“我终于不会错”，而是“我越来越知道自己会怎么错”。'
+      ];
+      log.textContent = messages[Number(slider.value)];
+    }
+
+    const prompts = [
+      '这次我以为自己看懂了，但作者真正的论点是什么？',
+      '我被哪个词、哪个选项、哪个常识骗了？',
+      '这个错误是能力不足，还是目标没有看清？',
+      '我是在用工具推进问题，还是用工具逃避问题？',
+      '如果明天只校准一个误差，它应该是什么？'
+    ];
+
+    function nextPrompt() {
+      log.textContent = prompts[Math.floor(Math.random() * prompts.length)];
+    }
+  </script>
+</body>
+</html>
