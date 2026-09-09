@@ -1,10 +1,7 @@
 # 从弹弓到瞄准镜 / From Slingshot to Scope
 
-一个关于学习、AI 工具与自我校准的中文交互随笔。来自一次考研英语真题复盘：工具越来越强，我有没有看得更清楚？
+一个关于学习、AI 工具与自我校准的中文交互随笔。来自一次感悟：工具越来越强，我有没有看得更清楚？
 
-**[打开新版体验 →](https://eyne-slingshot-to-scope.bouncy-wren-3789.chatgpt.site)**
-
-此入口是作者预览，需要登录创建站点的 ChatGPT 账号。公开访客可以 [下载完整项目](https://github.com/Eyne66/From-Slingshot-to-Scope/archive/refs/heads/main.zip)，解压后双击 `index.html`，直接在浏览器体验。
 
 [查看网页源码](https://github.com/Eyne66/From-Slingshot-to-Scope/blob/main/index.html) · [阅读项目缘起](#项目缘起)
 
@@ -21,7 +18,7 @@
 
 这个项目来自一次真实的学习复盘。
 
-做考研英语真题时，我开始留意自己会如何被误导：熟悉感、假线索、先入为主，以及工具制造的“我好像懂了”的感觉。
+我开始留意自己会如何被误导：熟悉感、假线索、先入为主，以及工具制造的“我好像懂了”的感觉。
 
 于是，我把这种经历转化为一个隐喻：
 
