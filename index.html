@@ -93,6 +93,19 @@ noscript{display:block;padding:16px;color:var(--orange)}
 @media(max-width:1050px){.wrap{width:calc(100% - 56px)}.exp-body{grid-template-columns:305px 1fr}.controls{padding:23px}.intro-note{max-width:295px;font-size:14px}.reading-intro,.reflection{gap:40px}.ideas{gap:25px}}
 @media(max-width:760px){.wrap{width:calc(100% - 32px)}.topbar{min-height:67px}.brand{font-size:12px;gap:8px}.toplinks{gap:15px;font-size:12px}.toplinks a:first-child{display:none}.intro{display:block;padding:28px 0 24px}.kicker{font-size:11px;letter-spacing:.11em}h1{font-size:clamp(28px,7vw,44px);letter-spacing:0}.intro-note{max-width:none;margin:14px 0 0;font-size:14px}.exp-top{padding:11px 16px}.exp-top small{max-width:110px;text-align:right;font-size:11px}.exp-body{display:flex;flex-direction:column;min-height:0}.controls{display:contents}.controls>.label{margin:18px 18px 9px}.stages{margin:0 18px}.stage{padding:8px 4px}.stage span{display:inline;margin-right:7px}.stage-copy{margin:18px 18px 14px}.stage-copy h2{font-size:23px;margin-bottom:7px}.stage-copy p{font-size:14px;min-height:0}.conditions{margin:0 18px 16px;padding:9px 0}.condition small{display:inline;font-size:12px;margin-right:9px}.condition strong{font-size:13px}.visual{order:1;border-top:1px solid var(--line)}.actions{order:2;margin:16px 18px 0;padding:0}.micro{order:3;margin:8px 18px 16px}.field-top{padding:13px 16px 0;font-size:11px}.field-box{min-height:245px}.field{min-height:245px;max-height:300px}.legend{padding-bottom:10px;gap:18px;font-size:11px}.aim-controls{padding:8px 16px 11px;gap:18px}.feedback{padding:14px 18px;grid-template-columns:1fr;gap:4px}.feedback-label{font-size:12px}.feedback p{font-size:14px}.reading{padding-top:40px}.reading-intro{grid-template-columns:1fr;gap:16px;margin-bottom:27px}.reading h2{font-size:28px}.reading-intro p{font-size:15px}.ideas{grid-template-columns:1fr;gap:25px;padding:25px 0 34px}.idea-num{float:left;margin-top:2px;width:32px}.ideas h3{margin:0 0 8px 32px}.ideas p{margin-left:32px;font-size:14px}.reflection{grid-template-columns:1fr;gap:23px;padding:28px 0 34px}.reflection h2{font-size:25px}.reflection-note{max-width:none}.question-block{padding-left:20px}.question{min-height:80px;font-size:23px}footer{font-size:11px;flex-direction:column;gap:8px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+
+.tool-comparison{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-bottom:1px solid var(--line)}
+.tool-card{display:flex;flex-direction:column;align-items:stretch;min-width:0;border:0;border-bottom:3px solid transparent;background:#fff;padding:12px 24px 15px;color:var(--ink);text-align:left;transition:border-color .2s}
+.tool-card[aria-pressed="true"]{border-bottom-color:var(--blue)}
+.tool-card:hover{border-bottom-color:#92adf3}.tool-card[aria-pressed="true"]:hover{border-bottom-color:var(--blue)}
+.tool-visual{width:100%;height:116px;display:block;margin:0 0 9px}
+.tool-caption{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.tool-title{font-size:17px;white-space:nowrap;font-weight:550}.tool-title small{font-size:12px;font-weight:400;color:var(--muted);margin-right:9px}
+.tool-note{font-size:12px;color:var(--muted)}
+.tool-card[aria-pressed="true"] .tool-title,.tool-card[aria-pressed="true"] .tool-title small{color:var(--blue)}
+.stage-copy{margin-top:5px}.stage-copy p{min-height:80px}
+@media(max-width:1050px){.tool-caption{display:block}.tool-note{display:block;margin-top:4px}.tool-card{padding:10px 18px 12px}}
+@media(max-width:760px){.tool-card{padding:8px 8px 11px}.tool-visual{height:85px;margin-bottom:5px}.tool-title{font-size:15px}.tool-title small{font-size:11px;margin-right:5px}.tool-note{font-size:11px;line-height:1.6}.tool-caption{text-align:center}.stage-copy{margin-top:2px}.stage-copy p{min-height:0}.controls>.label{margin-bottom:8px}}
 </style>
 </head>
 <body>
@@ -109,14 +122,15 @@ noscript{display:block;padding:16px;color:var(--orange)}
 <section class="experiment" aria-label="自我校准交互实验">
 <div class="exp-top"><span class="exp-label"><span class="tiny-cross" aria-hidden="true">＋</span>一次自我校准练习</span><small>隐喻示意 · 不代表能力测量</small></div>
 <noscript>请启用 JavaScript 体验瞄准互动。下方仍可阅读完整随笔。</noscript>
+<div class="tool-comparison" role="group" aria-label="选择工具，比较三个阶段">
+<button class="tool-card" type="button" data-stage="0" aria-pressed="true" aria-label="弹弓：工具简单 · 落点分散"><svg class="tool-visual" viewBox="0 60 430 600" aria-hidden="true"><image href="assets/tool-comparison.webp" width="2172" height="724"/></svg><span class="tool-caption"><span class="tool-title"><small>01</small>弹弓</span><span class="tool-note">工具简单 · 落点分散</span></span></button>
+<button class="tool-card" type="button" data-stage="1" aria-pressed="false" aria-label="枪：工具增强 · 方向待辨"><svg class="tool-visual" viewBox="420 220 1080 310" aria-hidden="true"><image href="assets/tool-comparison.webp" width="2172" height="724"/></svg><span class="tool-caption"><span class="tool-title"><small>02</small>枪</span><span class="tool-note">工具增强 · 方向待辨</span></span></button>
+<button class="tool-card" type="button" data-stage="2" aria-pressed="false" aria-label="瞄准镜：视野清楚 · 主动校准"><svg class="tool-visual" viewBox="1510 230 662 290" aria-hidden="true"><image href="assets/tool-comparison.webp" width="2172" height="724"/></svg><span class="tool-caption"><span class="tool-title"><small>03</small>瞄准镜</span><span class="tool-note">视野清楚 · 主动校准</span></span></button>
+</div>
 <div class="exp-body">
 <div class="controls">
-<p class="label">选择一个阶段，试着瞄准。</p>
-<div class="stages" role="group" aria-label="切换阶段">
-<button class="stage" type="button" data-stage="0" aria-pressed="true"><span>01</span>弹弓</button>
-<button class="stage" type="button" data-stage="1" aria-pressed="false"><span>02</span>枪</button>
-<button class="stage" type="button" data-stage="2" aria-pressed="false"><span>03</span>瞄准镜</button>
-</div>
+<p class="label" id="current-tool">当前工具 / 弹弓</p>
+
 <div class="stage-copy"><h2 id="stage-name">有方向，还看不清。</h2><p id="stage-description">凭着兴趣和直觉开始尝试。手里的工具还简单，目标模糊，落点也有些散。</p></div>
 <div class="conditions"><div class="condition"><small>工具表现</small><strong id="tool-state">落点分散</strong></div><div class="condition"><small>目标视野</small><strong id="view-state">模糊</strong></div></div>
 <div class="actions"><button class="primary" type="button" id="shoot">试着瞄准一次 <span aria-hidden="true">↗</span></button><button class="reset" type="button" id="reset" aria-label="重置整个实验" title="重置整个实验">↺</button></div>
@@ -153,9 +167,9 @@ noscript{display:block;padding:16px;color:var(--orange)}
 </section>
 <section class="reading" id="origin" aria-labelledby="origin-title">
 <div class="reading-intro"><div><p class="kicker">这段思考从哪里来</p><h2 id="origin-title">我开始留意，<br>自己是怎么被带偏的。</h2></div>
-<p>这个项目来自一次考研英语真题复盘。我发现，除了知道答案，我还想弄清楚：哪个词让我误判？哪个选项借用了我的常识？AI 的解释很流畅，我能不能自己再讲一遍？于是，“弹弓—枪—瞄准镜”成了我描述这段学习经历的隐喻。</p></div>
+<p>这个项目来自一次感悟。</p></div>
 <div class="ideas">
-<article><span class="idea-num">01 /</span><h3>工具变强了</h3><p>AI、资料、真题和教程都在手里。它们让我做得更快，也让我开始追问：我在朝哪个方向推进？</p></article>
+<article><span class="idea-num">01 /</span><h3>工具变强了</h3><p>AI、资料和教程都在手里。它们让我做得更快，也让我开始追问：我在朝哪个方向推进？</p></article>
 <article><span class="idea-num">02 /</span><h3>熟悉感也会带偏我</h3><p>一句话读着顺，一个解释听着合理，都可能让我过早地觉得“懂了”。回到具体证据，才能看见判断停在了哪里。</p></article>
 <article><span class="idea-num">03 /</span><h3>把误差看具体</h3><p>“我为什么会错？”“我被什么骗了？”这些问题让我有机会调整下一次行动。瞄准镜让偏差显现，方向仍然由我来调。</p></article>
 </div>
@@ -172,7 +186,7 @@ noscript{display:block;padding:16px;color:var(--orange)}
 // 三个阶段共享同一组扰动，方便比较工具精度；这是隐喻模型，不是心理测量。
 const STAGES = [
   {title:'有方向，还看不清。',description:'凭着兴趣和直觉开始尝试。手里的工具还简单，目标模糊，落点也有些散。',tool:'落点分散',view:'模糊',spread:80,blur:7,opacity:.4},
-  {title:'工具更强，方向呢？',description:'AI、资料、真题都在手里。落点更集中了，但熟悉感和先入为主，仍可能把我带向同一个错误。',tool:'落点集中',view:'轮廓可见',spread:24,blur:3,opacity:.65},
+  {title:'工具更强，方向呢？',description:'AI、资料和教程都在手里。落点更集中了，但熟悉感和先入为主，仍可能把我带向同一个错误。',tool:'落点集中',view:'轮廓可见',spread:24,blur:3,opacity:.65},
   {title:'看见偏差，再调整。',description:'靶心变得清楚了。试着移动橙色瞄准点，再观察下一次落点。看见误差之后，我才能具体地调整方向。',tool:'落点集中',view:'清晰',spread:24,blur:0,opacity:1}
 ];
 const NOISE = [[.65,.45],[-.9,-.35],[.15,-.95],[.85,-.55],[-.65,.8],[-.3,.35],[.4,.9],[-.8,-.85],[.05,-.2],[.95,.15],[-.4,-.65],[.3,.65]];
@@ -209,6 +223,7 @@ function renderShots(){
 }
 function renderStage(){
   const s=STAGES[state.stage];
+  $('current-tool').textContent='当前工具 / '+['弹弓','枪','瞄准镜'][state.stage];
   document.querySelectorAll('[data-stage]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.stage)===state.stage)));
   $('stage-name').textContent=s.title;$('stage-description').textContent=s.description;
   $('tool-state').textContent=s.tool;$('view-state').textContent=s.view;
